@@ -8,7 +8,7 @@ class JobCards extends React.Component {
     state = {
         query: "lord",
         queryError: "",
-        selected:{},
+        selected:[],
         isLoading: false,
       };
     
@@ -23,7 +23,7 @@ class JobCards extends React.Component {
           if (response.ok) {
             console.log("Response is ok!!");
             let data = await response.json();
-            console.log(data);
+            console.log(data.jobs);
             if (data) {
               this.setState({ queryError: "" });
               this.setState({ selected: data.jobs });
@@ -51,18 +51,31 @@ class JobCards extends React.Component {
   
       return <>
   
-  
-  <Card style={{ width: '18rem' }}>
-  <Card.Img variant="top" src="holder.js/100px180" />
-  <Card.Body>
-    <Card.Title>Card Title</Card.Title>
-    <Card.Text>
-      Some quick example text to build on the card title and make up the bulk of
-      the card's content.
-    </Card.Text>
-    <Button variant="primary">Go somewhere</Button>
-  </Card.Body>
-</Card>
+  <div className="container-fluid">
+                
+                <h2>Harry Potter</h2>
+                <div className=" row ">
+                    {
+
+                        this.state.selected.map(job => {
+
+                            return (
+                                <Card.Body key={job.id}>
+                                <div onClick={() => {this.state.show ? this.setState({show: false}) : this.setState({show: true})
+                                this.setState({imdbID: job.id})
+                                }} className="col-md-2" style={{display: "inline"}}>
+                                <span class="text-truncate">{job.title}</span>
+                                
+                                <p></p>
+                                
+                            </div>
+                            </Card.Body>)
+
+                        })
+                    }
+                </div>
+
+            </div>
       </>
   
   
